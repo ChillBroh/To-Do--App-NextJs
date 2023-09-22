@@ -1,0 +1,19 @@
+{
+  "task": [
+    {
+      "id": 1,
+      "text": "buy milk with some orange",
+      "status": "completed"
+    },
+    {
+      "id": 2,
+      "text": "Help my friend",
+      "status": "Not completed"
+    },
+    {
+      "id": 3,
+      "text": "Get dhal for mom",
+      "status": "Not completed"
+    }
+  ]
+}

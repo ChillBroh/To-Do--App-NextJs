@@ -1,6 +1,14 @@
+import { Itasks } from "@/types/task";
 import React from "react";
 
-const ToDoList = () => {
+interface TodoListProps {
+  tasks: Itasks[];
+}
+
+const ToDoList: React.FC<TodoListProps> = ({ tasks }) => {
+  if (!tasks) {
+    return null;
+  }
   return (
     <div>
       <div className="flex flex-col">
@@ -12,25 +20,29 @@ const ToDoList = () => {
                   <tr>
                     <th>No</th>
                     <th scope="col" className="px-6 py-4">
-                      Class
-                    </th>
-                    <th scope="col" className="px-6 py-4">
                       Heading
                     </th>
-                    <th scope="col" className="px-6 py-4">
-                      Heading
-                    </th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-success-200 bg-green-200 text-neutral-800">
-                    <td>1</td>
-                    <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      Success
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                    <td className="whitespace-nowrap px-6 py-4">Cell</td>
-                  </tr>
+                  {tasks.map((task) => {
+                    const color =
+                      task.status === "completed"
+                        ? "bg-green-200"
+                        : "bg-red-200";
+
+                    return (
+                      <tr
+                        className={`border-b border-success-200 ${color}  text-black font-bold`}
+                        key={task.id}
+                      >
+                        <td>{task.id}</td>
+                        <td className=" px-6 py-4 ">{task.text}</td>
+                        <td className=" px-6 py-4">{task.status}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

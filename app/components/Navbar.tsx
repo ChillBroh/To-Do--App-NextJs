@@ -20,7 +20,7 @@ const Navbar = () => {
         href={"/aboutus"}
         className="hover:bg-blue-400 p-4 hover:text-white rounded-2xl"
       >
-        About us
+        Delete And Edit
       </Link>
       <Link
         href={"/aboutus"}
