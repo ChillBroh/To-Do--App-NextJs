@@ -5,8 +5,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Model from "./Model";
 
 const AddTask: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newTask, setNewTask] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [newTask, setNewTask] = useState<string>("");
+  const [status, setStatue] = useState();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -15,8 +16,7 @@ const AddTask: React.FC = () => {
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (newTask === "") {
-      alert("must add a task");
-      return;
+      setStatue("error");
     }
     setNewTask(newTask);
     console.log(newTask);
@@ -39,6 +39,8 @@ const AddTask: React.FC = () => {
             <Input
               placeholder="Input here"
               onChange={(e) => setNewTask(e.target.value)}
+              status={status}
+              onClick={() => setStatue("warning")}
             />
             <button className="bg-black text-white p-3 rounded-lg">
               Submit
