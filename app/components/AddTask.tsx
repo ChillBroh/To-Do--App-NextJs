@@ -3,23 +3,37 @@ import React, { FormEventHandler, useState } from "react";
 import { Button, Form, Input, Space } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 import Model from "./Model";
+import { addToDo, getAllTodos } from "@/api";
+import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 const AddTask: React.FC = () => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<string>("");
-  const [status, setStatue] = useState();
+  const [status, setStatus] = useState();
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    const allTasks = await getAllTodos();
+    // const arr: number = allTasks.length;
+
     if (newTask === "") {
-      setStatue("error");
+      setStatus("error");
     }
+
     setNewTask(newTask);
-    console.log(newTask);
+    setIsModalOpen(false);
+    await addToDo({
+      id: uuidv4(),
+      text: newTask,
+      status: "Not completed",
+    });
+    router.refresh();
   };
 
   return (
@@ -40,7 +54,7 @@ const AddTask: React.FC = () => {
               placeholder="Input here"
               onChange={(e) => setNewTask(e.target.value)}
               status={status}
-              onClick={() => setStatue("warning")}
+              onClick={() => setStatus("warning")}
             />
             <button className="bg-black text-white p-3 rounded-lg">
               Submit
